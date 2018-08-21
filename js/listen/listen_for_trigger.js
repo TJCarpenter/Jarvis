@@ -58,9 +58,14 @@ function listen_for_trigger() {
                 recognizing = false;
                 trigger_heard = true;
 
-                respond();
+                speak(respond_to_greeting);
 
             }
+        };
+
+        const speak = (action) => {
+            utterThis = new SpeechSynthesisUtterance(action());
+            synth.speak(utterThis);
         };
 
         speech.onerror = function (event) {

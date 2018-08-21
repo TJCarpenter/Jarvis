@@ -5,8 +5,7 @@
     Create a response and then send back a response string
 */
 
-
-function respond() {
-
-
+function respond_to_greeting() {
+    const response = 'Yes?';
+    return response;
 }
