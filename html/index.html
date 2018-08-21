@@ -15,4 +15,20 @@
 
 </body>
 
+<script type="text/javascript">
+    function upgrade() {
+        // If SpeechRecognition is not avaliable, alert user
+        alert('Please use Google Chrome for the best experience');
+    }
+
+    window.onload = function () {
+
+        // Check if SpeechRecognition is avaliable
+        if (!(window.webkitSpeechRecognition) && !(window.speechRecognition)) {
+            upgrade();
+        }
+
+    }
+</script>
+
 </html>
