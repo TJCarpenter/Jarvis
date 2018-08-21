@@ -26,6 +26,10 @@
         // Check if SpeechRecognition is avaliable
         if (!(window.webkitSpeechRecognition) && !(window.speechRecognition)) {
             upgrade();
+        } else {
+
+            listen_for_trigger();
+
         }
 
     }
