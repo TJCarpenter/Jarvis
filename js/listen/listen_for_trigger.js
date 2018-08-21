@@ -8,11 +8,6 @@
     trigger word.
 */
 
-// If browser does not have SpeechRecognition or SpeechSynthsis, prompt user to upgrade browser
-function upgrade() {
-    alert('Please use Google Chrome for the best experience');
-}
-
 function listen_for_trigger() {
     // Check if browser supports SpeechRecognition and SpeechSynthesis
     if (!(window.webkitSpeechRecognition) && !(window.speechRecognition) && !(window.speechSynthesis)) {
@@ -25,6 +20,7 @@ function listen_for_trigger() {
 
         // Initialize recognizing state
         var recognizing;
+        var trigger_heard;
 
         // Reset Function
         function reset() {
@@ -57,7 +53,13 @@ function listen_for_trigger() {
             }
 
             if ((/^hey /g.test(final_transcript)) && (/Jarvis/g.test(final_transcript))) {
-                console.log('I heard you loud and clear');
+
+                speech.abort();
+                recognizing = false;
+                trigger_heard = true;
+
+                respond();
+
             }
         };
 
@@ -68,8 +70,11 @@ function listen_for_trigger() {
 
         speech.onend = function () {
             // When recognition end
-            reset();
+            if (!trigger_heard) {
+                reset();
+            } else {
+                listen_for_command();
+            }
         };
     }
-
 }
