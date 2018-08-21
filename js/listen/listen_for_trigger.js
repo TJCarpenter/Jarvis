@@ -13,61 +13,63 @@ function upgrade() {
     alert('Please use Google Chrome for the best experience');
 }
 
-// Check if browser supports SpeechRecognition and SpeechSynthesis
-if (!(window.webkitSpeechRecognition) && !(window.speechRecognition) && !(window.speechSynthesis)) {
-    upgrade();
-} else {
+function listen_for_trigger() {
+    // Check if browser supports SpeechRecognition and SpeechSynthesis
+    if (!(window.webkitSpeechRecognition) && !(window.speechRecognition) && !(window.speechSynthesis)) {
+        upgrade();
+    } else {
 
-    // Initialize SpeechRecognition and SpeechSynthesis
-    var speech = new webkitSpeechRecognition() || speechRecognition();
-    var synth = new speechSynthesis();
+        // Initialize SpeechRecognition and SpeechSynthesis
+        var speech = new webkitSpeechRecognition() || speechRecognition();
+        var synth = window.speechSynthesis;
 
-    // Initialize recognizing state
-    var recognizing;
+        // Initialize recognizing state
+        var recognizing;
 
-    // Reset Function
-    function reset() {
-        recognizing = false;
-        speech.start()
-    }
+        // Reset Function
+        function reset() {
+            recognizing = false;
+            speech.start()
+        }
 
-    speech.continuous = true;
-    speech.interimResults = true;
-    speech.lang = 'en-US'
-    speech.start();
+        speech.continuous = true;
+        speech.interimResults = true;
+        speech.lang = 'en-US'
+        speech.start();
 
-    speech.onstart = function() {
-        // When recognition begins
-        recognizing = true;
-    };
+        speech.onstart = function () {
+            // When recognition begins
+            recognizing = true;
+        };
 
-    speech.onresult = function(event) {
-        // When recognition produces a result
-        var interim_transcript = '';
-        var final_transcript = '';
+        speech.onresult = function (event) {
+            // When recognition produces a result
+            var interim_transcript = '';
+            var final_transcript = '';
 
-        // main for loop for the final and interem results
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-                final_transcript += event.results[i][0].transcript;
-            } else {
-                interim_transcript += event.results[i][0].transcript;
+            // main for loop for the final and interem results
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    final_transcript += event.results[i][0].transcript;
+                } else {
+                    interim_transcript += event.results[i][0].transcript;
+                }
             }
-        }
 
-        if ((/^hey /g.test(final_transcript)) && (/Jarvis/g.test(final_transcript))) {
-            console.log('I heard you loud and clear');
-        }
-    };
+            if ((/^hey /g.test(final_transcript)) && (/Jarvis/g.test(final_transcript))) {
+                console.log('I heard you loud and clear');
+            }
+        };
 
-    speech.onerror = function(event) {
-        // Either 'No-speech' or 'Network connection error'
-        console.error(event.error);
-    };
+        speech.onerror = function (event) {
+            // Either 'No-speech' or 'Network connection error'
+            console.error(event.error);
+        };
 
-    speech.onend = function() {
-        // When recognition end
-        reset();
-    };
+        speech.onend = function () {
+            // When recognition end
+            reset();
+        };
+    }
 
 }
