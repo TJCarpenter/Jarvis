@@ -11,8 +11,13 @@ function key_words(string) {
 
     commands.forEach(element => {
         if (element == "play" && string.includes(element)) {
-            console.log("Initial Command: " + element);
-            getAdditionalPlayParam(string.slice((string.indexOf(element) + element.length + 1), string.length));
+            if (string.includes("by")) {
+                console.log("Initial Command: " + element);
+                getSongNameAndArtist(string.slice((string.indexOf(element) + element.length + 1), string.length));
+            } else {
+                console.log("Initial Command: " + element);
+                getAdditionalPlayParam(string.slice((string.indexOf(element) + element.length + 1), string.length));
+            }            
         };
         if (element == "pause" && string.includes(element)) {
             console.log("Initial Command: " + element);
@@ -29,6 +34,13 @@ function key_words(string) {
         return true;
     }
 
+}
+
+function getSongNameAndArtist(string) {
+    var song_name = string.slice(0, string.indexOf("by"));
+    var artist = string.slice((string.indexOf("by") + "by".length + 1), string.length)
+    console.log("Song Name:" + song_name);
+    console.log("Artist Name: " + artist);
 }
 
 function getAdditionalPlayParam(string) {
