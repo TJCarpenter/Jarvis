@@ -1,8 +1,8 @@
-//spotify.js
+//music.js
 
 // Function:
 /*
-    Supply the functional commands to execute for spotify
+    Supply the functional commands to execute for music
 */
 
 
