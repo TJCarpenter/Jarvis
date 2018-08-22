@@ -44,22 +44,18 @@ function listen_for_command() {
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                     final_transcript += event.results[i][0].transcript;
+                    // Determine if the command is a valid command
+                    if (valid_command(final_transcript)) {
+                        speak(good_response);
+                        speech.stop();
+                        recognizing = false;
+                    } else {
+                        speak(bad_response);
+                    }
                 } else {
                     interim_transcript += event.results[i][0].transcript;
                 }
             }
-
-            // Determine if the command is a valid command
-            if (validCommand()) {
-
-
-            }
-
-                // speech.abort();
-                // recognizing = false;
-                // trigger_heard = true;
-
-                // speak(respond_to_greeting);
 
         };
 
@@ -74,8 +70,7 @@ function listen_for_command() {
         };
 
         speech.onend = function () {
-            // When recognition end
-            closing_response();
+            speak(closing_response);
             listen_for_trigger();
         };
     }

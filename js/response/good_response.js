@@ -1,11 +1,11 @@
-// closing_response.js
+// good_response.js
 
 // Function:
 /*
     Create a response and then send back a response string
 */
 
-function closing_response() {
-    const response = 'Closing';
+function good_response() {
+    const response = 'Good Command';
     return response;
 }

@@ -54,7 +54,7 @@ function listen_for_trigger() {
 
             if ((/^hey /g.test(final_transcript)) && (/Jarvis/g.test(final_transcript))) {
 
-                speech.abort();
+                speech.stop();
                 recognizing = false;
                 trigger_heard = true;
 
