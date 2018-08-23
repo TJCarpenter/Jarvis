@@ -14,18 +14,58 @@
     <script src="../js/response/bad_response.js"></script>
     <script src="../js/response/closing_response.js"></script>
     <script src="../js/functions/upgrade.js"></script>
-    <script src="../js/commands/music.js"></script>
+    <script src="../js/commands/music/music.js"></script>
     <script src="../js/commands/valid_command.js"></script>
+    <script src="../js/commands/music/play/play.js"></script>
 </head>
 
 <body>
+
+    <input type="file" name="file" id="file">
 
 </body>
 
 <script type="text/javascript">
     window.onload = function () {
-        
-        listen_for_trigger();
+
+        document.getElementById('file').onchange = function () {
+
+            var score = 0;
+
+            var file = this.files[0];
+
+            var reader = new FileReader();
+            reader.onload = function (progressEvent) {
+                // By lines
+                var lines = this.result.split('\n');
+                for (var line = 0; line < lines.length; line++) {
+                    var band_name_key = lines[line];
+                    
+                    var p = new Play(" " + lines[line]);
+                    var band_name_test = p.artist;
+
+                    if (band_name_key === band_name_test) {
+                        //console.log("Attempted Answer: " + band_name_test);
+                        //console.log("Correct Answer: " + band_name_key);
+                        //console.log("");
+                        score++;
+                    } else {
+                        console.log("Attempted Answer: " + band_name_test);
+                        console.log("Correct Answer: " + band_name_key);
+                    }
+                }
+                
+                var average = (score / lines.length) * 100;
+                console.log("Score Average: " + average + "%");
+
+            };
+            reader.readAsText(file);
+        };
+
+        // var p = new Play('by the band temper trap');
+        // console.log(p.artist);
+
+        //listen_for_trigger();
 
     }
 </script>
