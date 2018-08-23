@@ -2,15 +2,6 @@ class Play {
 
     constructor(string) {
         this.raw_string = string.replace(new RegExp("\\b" + "play" + "\\b"), "");
-        this.command = {
-            initial_command: "PLAY",
-            artist_name: "",
-            album_name: "",
-            song: "",
-            time_period: "",
-            genre: "",
-            playlist: ""
-        };
 
         this.artist = (function (raw_string) {
             // Extracts the artists name or the band name from the command
@@ -107,5 +98,15 @@ class Play {
         this.time_period = null;
         this.genre = null;
         this.playlist = null;
+        
+        this.command = {
+            initial_command: "PLAY",
+            artist_name: this.artist,
+            album_name: "",
+            song: "",
+            time_period: "",
+            genre: "",
+            playlist: ""
+        };
     }
 }
