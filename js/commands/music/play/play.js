@@ -20,12 +20,10 @@ class Play {
 
             // Initialize variables
             var set = false; // For if a key word has been found and the predicted artist has been set
-            var artist, skip, left;
+            var artist, left;
             var index_count = {};
             var right_side = [];
             var left_side = [];
-            var artist_arr = [];
-            var dump_arr = [];
 
             // Create an array of the command
             var raw_string = raw_string.split(" ");
