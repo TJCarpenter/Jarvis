@@ -32,7 +32,7 @@ class Play {
 
             // Loop through every word in the command and determine if the given index value is found in the key words
             raw_string.forEach(element => {
-                
+
                 // If the word is found in the key words list...
                 if (key_words.includes(element)) {
 
@@ -92,42 +92,14 @@ class Play {
                 // If the left side is not empty, it means that the hanging keyword was removed. The left side array is then assigned to the main array string
                 if (left_side.length != 0) {
                     split_string_reverse = [];
-                    split_string_reverse = left_side;
+                    return (left_side.reverse()).join(" ");
+
                 }
 
             } else {
 
                 return (artist.reverse()).join(" ");
 
-            }
-
-            // Remove any aditional hanging keywords
-            // This step maybe redundant.
-            while (skip) {
-
-                for (let i = 0; i < split_string_reverse.length; i++) {
-                    if ((key_words.indexOf(split_string_reverse[i]) > -1)) {
-
-                        var key = split_string_reverse[i];
-
-                        if (skip) {
-                            artist_arr.push(split_string_reverse[i]);
-                            skip = false;
-                        } else {
-                            if (key in index_count) {
-                                index_count[key] = index_count[key] - 1;
-                            }
-                            dump_arr.push(split_string_reverse[i]);
-                            artist_arr.push('%');
-                        }
-                    } else {
-                        artist_arr.push(split_string_reverse[i]);
-                    }
-
-                }
-
-                skip = false;
-                return (artist_arr.reverse()).join(" ");
             }
 
         })(this.raw_string);
